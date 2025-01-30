@@ -40,4 +40,21 @@ export class AssignmentsController {
     }
     return true;
   }
+
+  @Get('factorial/:number')
+  getFactorial(@Param('number') number: string): { result: number } {
+    const num = parseInt(number, 10);
+    if (isNaN(num) || num < 0) {
+      throw new Error('Invalid input. Please provide a non-negative integer.');
+    }
+    const result = this.calculateFactorial(num);
+    return { result };
+  }
+
+  private calculateFactorial(n: number): number {
+    if (n === 0 || n === 1) {
+      return 1;
+    }
+    return n * this.calculateFactorial(n - 1);
+  }
 }
